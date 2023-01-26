@@ -1,0 +1,66 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+@Html.ActionLink("File Result", "Index_File")
+<br />
+<hr />
+
+@Html.ActionLink("File Result1", "Index_File1")
+<br />
+<hr />
+
+@Html.ActionLink("Download File", "DownloadFile")
+<br />
+<hr />
+
+@Html.ActionLink("GetPersonData", "GetPersonData")
+<br />
+<hr />
+
+<input type="button" id="PersonData" value="Person Data" onclick="PostPersonData();" />
+
+<script lang="en" type="text/javascript">
+    function PostPersonData() {
+        debugger;
+
+        var PersonJson = PopulatePersonList();
+        var getReportColumnsParams = {
+            "PersonJson": PersonJson
+        };
+
+        $.ajax({
+            type: "POST",
+            traditional: true,
+            async: false,
+            cache: false,
+            url: '/JsonDemo/GetPersonData',
+            context: document.body,
+            data: getReportColumnsParams,
+            success: function (result) {
+                console.log(result)
+            },
+            error: function (xhr) {
+                //debugger;
+                console.log(xhr.responseText);
+                alert("Error has occurred..");
+            }
+        });
+    }
+    function PopulatePersonList() {
+        var PersonData = {};
+        var PersonList = [];
+        for (var i = 1; i <= 3; i++) {
+            PersonData["Name"] = "Person - " + i;
+            PersonData["Description"] = "Description - " + i;
+            PersonList.push(PersonData);
+        }
+        return JSON.stringify(PersonList);
+    }
+
+</script>
+
+@*<script src="~/Scripts/jquery-3.4.1.js"></script>*@

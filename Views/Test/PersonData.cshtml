@@ -1,0 +1,13 @@
+﻿@model List<WebApplication1.Models.Person>
+
+@{
+    ViewBag.Title = "PersonData";
+    // Layout = null;
+}
+
+<h2>PersonData</h2>
+
+@using (Ajax.BeginForm("GetPersonData", new AjaxOptions() { OnSuccess = "submitMissionSuccess" }))
+{
+    <input type="submit" value="Ok" />
+}
